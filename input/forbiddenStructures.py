@@ -440,3 +440,34 @@ u"""
 Geometry could not converge at wB97x-D3/6-311++G(3df,3pd) (alongd ref - xq1492)
 """,
 )
+entry(
+    label = "CO2XX",
+    species =
+"""
+1 O u0 p2 c0 {3,S} {5,S}
+2 O u0 p2 c0 {3,D}
+3 C u0 p0 c0 {1,S} {2,D} {4,S}
+4 X u0 p0 c0 {3,S}
+5 X u0 p0 c0 {1,S}
+""",
+    shortDesc = u"""""",
+    longDesc =
+u"""
+Bidentate CO2 is unlikely because od the stretching of the CO bond required. 
+""",
+)
+
+entry(
+    label = "H2X",
+    species =
+"""
+1 H u0 p0 c0 {2,S}
+2 H u0 p0 c0 {1,S}
+3 X u0 p0 c0
+""",
+    shortDesc = u"""""",
+    longDesc =
+u"""
+Bidentate CO2 is unlikely because od the stretching of the CO bond required. 
+""",
+)
