@@ -457,17 +457,17 @@ Bidentate CO2 is unlikely because od the stretching of the CO bond required.
 """,
 )
 
-entry(
-    label = "H2X",
-    species =
-"""
-1 H u0 p0 c0 {2,S}
-2 H u0 p0 c0 {1,S}
-3 X u0 p0 c0
-""",
-    shortDesc = u"""""",
-    longDesc =
-u"""
-Bidentate CO2 is unlikely because od the stretching of the CO bond required. 
-""",
-)
+# entry(
+#     label = "H2X",
+#     species =
+# """
+# 1 H u0 p0 c0 {2,S}
+# 2 H u0 p0 c0 {1,S}
+# 3 X u0 p0 c0
+# """,
+#     shortDesc = u"""""",
+#     longDesc =
+# u"""
+# Bidentate CO2 is unlikely because od the stretching of the CO bond required. 
+# """,
+# )
