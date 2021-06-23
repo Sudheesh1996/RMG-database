@@ -10,19 +10,19 @@ NX
 2 X u0 p0 c0 {1,T}
 
 HX
-1 X u0 p0 c0 {2,S}
-2 H u0 p0 c0 {1,S}
+1 H u0 p0 c0 {2,S}
+2 X u0 p0 c0 {1,S}
 
 NHX
-1 N u0 p1 c0 {2,D} {3,S}
-2 X u0 p0 c0 {1,D}
-3 H u0 p0 c0 {1,S}
+1 N u0 p1 c0 {2,S} {3,D}
+2 H u0 p0 c0 {1,S}
+3 X u0 p0 c0 {1,D}
 
 NH2X
 1 N u0 p1 c0 {2,S} {3,S} {4,S}
-2 X u0 p0 c0 {1,S}
+2 H u0 p0 c0 {1,S}
 3 H u0 p0 c0 {1,S}
-4 H u0 p0 c0 {1,S}
+4 X u0 p0 c0 {1,S}
 
 NH3X
 1 N u0 p1 c0 {2,S} {3,S} {4,S}
@@ -30,8 +30,4 @@ NH3X
 3 H u0 p0 c0 {1,S}
 4 H u0 p0 c0 {1,S}
 5 X u0 p0 c0
-
-H
-multiplicity 2
-1 H u1 p0 c0
 

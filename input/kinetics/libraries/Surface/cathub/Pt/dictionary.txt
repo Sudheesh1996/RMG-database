@@ -165,10 +165,6 @@ NH3X
 4 H u0 p0 c0 {1,S}
 5 X u0 p0 c0
 
-H
-multiplicity 2
-1 H u1 p0 c0
-
 CHX
 1 C u0 p0 c0 {2,S} {3,T}
 2 H u0 p0 c0 {1,S}

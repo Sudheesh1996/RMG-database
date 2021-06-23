@@ -11,7 +11,7 @@ entry(
     index = 0,
     label = "X + X + N2 <=> NX + NX",
     degeneracy = 1.0,
-    kinetics = SurfaceArrhenius(A=(1.00714e+21,'m^5/(mol^2*s)','*|/',100), n=0, Ea=(4.41723,'eV/molecule'), T0=(1,'K')),
+    kinetics = StickingCoefficient(A=2.63398e+06, n=0, Ea=(4.41723,'eV/molecule'), T0=(1,'K')),
     shortDesc = """cathub_id:UmVhY3Rpb246NDMzMDE3""",
     longDesc = 
 """
@@ -20,8 +20,7 @@ dft_code : Quantum Espresso
 dftFunctional : BEEF-vdW
 pubId: WangAchieving2021
 reactionEnergy: 2.4981024282751605 eV
-
-A factor estimation = kb*298/h/10 s^-1 / (2.483e-05 mol/m^2)^2 (surface site density for Pt111)
+A determined such that the sticking coeff is >= .1 at 3000K
 """,
     metal = "Cu",
     facet = "211",
@@ -90,48 +89,8 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
     facet = "211",
 )
 
-# entry(
-#     index = 4,
-#     label = "H + X <=> HX",
-#     degeneracy = 1.0,
-#     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^3/(mol*s)','*|/',100), n=0, Ea=(2.45,'eV/molecule'), T0=(1,'K')),
-#     shortDesc = """cathub_id:UmVhY3Rpb246NTgw""",
-#     longDesc = 
-# """
-# equation : H(g) + * -> H*
-# dft_code : DACAPO
-# dftFunctional : PW91
-# pubId: FerrinHydrogen2012
-# reactionEnergy: -2.45 eV
-
-# A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density for Pt111)
-# """,
-#     metal = "Cu",
-#     facet = "111",
-# )
-
-# entry(
-#     index = 5,
-#     label = "HX <=> HX",
-#     degeneracy = 1.0,
-#     kinetics = SurfaceArrhenius(A=(6.20932e+11,'s^-1','*|/',100), n=0, Ea=(0.46,'eV/molecule'), T0=(1,'K')),
-#     shortDesc = """cathub_id:UmVhY3Rpb246NjU1""",
-#     longDesc = 
-# """
-# equation : H** -> H** + **
-# dft_code : DACAPO
-# dftFunctional : PW91
-# pubId: FerrinHydrogen2012
-# reactionEnergy: -0.2 eV
-
-# A factor estimation = kb*298/h/10 s^-1
-# """,
-#     metal = "Cu",
-#     facet = "111",
-# )
-
 entry(
-    index = 6,
+    index = 4,
     label = "CHX + X <=> CX + HX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(2.21,'eV/molecule'), T0=(1,'K')),
@@ -151,7 +110,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 7,
+    index = 5,
     label = "CH2CH2X <=> HX + CCH3X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(6.20932e+11,'s^-1','*|/',100), n=0, Ea=(1.91665,'eV/molecule'), T0=(1,'K')),
@@ -171,11 +130,11 @@ A factor estimation = kb*298/h/10 s^-1
 )
 
 entry(
-    index = 8,
+    index = 6,
     label = "CH2X + X <=> HX + CHX",
     degeneracy = 1.0,
     duplicate = True,
-    kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.17,'eV/molecule'), T0=(1,'K')),
+    kinetics = MultiArrhenius(arrhenius=[SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.17,'eV/molecule'), T0=(1,'K')), SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.28762,'eV/molecule'), T0=(1,'K'))]),
     shortDesc = """cathub_id:UmVhY3Rpb246ODQz""",
     longDesc = 
 """
@@ -186,13 +145,20 @@ pubId: WangUniversal2011
 reactionEnergy: 0.412 eV
 
 A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density for Pt111)
+equation : CH2* + * -> CH* + H*
+dft_code : Quantum ESPRESSO 5.1
+dftFunctional : BEEF-vdW
+pubId: SchumannSelectivity2018
+reactionEnergy: 0.808352084743 eV
+
+A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density for Pt111)
 """,
     metal = "Cu",
     facet = "111",
 )
 
 entry(
-    index = 9,
+    index = 7,
     label = "CCHX <=> CX + CHX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(6.20932e+11,'s^-1','*|/',100), n=0, Ea=(2.8,'eV/molecule'), T0=(1,'K')),
@@ -212,11 +178,11 @@ A factor estimation = kb*298/h/10 s^-1
 )
 
 entry(
-    index = 10,
+    index = 8,
     label = "CH3X + X <=> HX + CH2X",
     degeneracy = 1.0,
     duplicate = True,
-    kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.57,'eV/molecule'), T0=(1,'K')),
+    kinetics = MultiArrhenius(arrhenius=[SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.57,'eV/molecule'), T0=(1,'K')), SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.67645,'eV/molecule'), T0=(1,'K'))]),
     shortDesc = """cathub_id:UmVhY3Rpb246ODg2""",
     longDesc = 
 """
@@ -227,13 +193,20 @@ pubId: WangUniversal2011
 reactionEnergy: 0.962 eV
 
 A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density for Pt111)
+equation : CH3* + * -> CH2* + H*
+dft_code : Quantum ESPRESSO 5.1
+dftFunctional : BEEF-vdW
+pubId: SchumannSelectivity2018
+reactionEnergy: 1.14904066645 eV
+
+A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density for Pt111)
 """,
     metal = "Cu",
     facet = "111",
 )
 
 entry(
-    index = 11,
+    index = 9,
     label = "CH2CH3X + X + X <=> HX + CH2CH2X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(1.00714e+21,'m^4/(mol^2*s)','*|/',100), n=0, Ea=(0.88716,'eV/molecule'), T0=(1,'K')),
@@ -253,10 +226,10 @@ A factor estimation = kb*298/h/10 s^-1 / (2.483e-05 mol/m^2)^2 (surface site den
 )
 
 entry(
-    index = 12,
+    index = 10,
     label = "CH3CH3 + X + X <=> HX + CH2CH3X",
     degeneracy = 1.0,
-    kinetics = SurfaceArrhenius(A=(1.00714e+21,'m^5/(mol^2*s)','*|/',100), n=0, Ea=(1.72461,'eV/molecule'), T0=(1,'K')),
+    kinetics = StickingCoefficient(A=78.925, n=0, Ea=(1.72461,'eV/molecule'), T0=(1,'K')),
     shortDesc = """cathub_id:UmVhY3Rpb246OTE2""",
     longDesc = 
 """
@@ -265,18 +238,17 @@ dft_code : DACAPO
 dftFunctional : RPBE
 pubId: WangUniversal2011
 reactionEnergy: 1.05277 eV
-
-A factor estimation = kb*298/h/10 s^-1 / (2.483e-05 mol/m^2)^2 (surface site density for Pt111)
+A determined such that the sticking coeff is >= .1 at 3000K
 """,
     metal = "Cu",
     facet = "211",
 )
 
 entry(
-    index = 13,
+    index = 11,
     label = "CH3CH2CH3 + X + X <=> CH3X + CH2CH3X",
     degeneracy = 1.0,
-    kinetics = SurfaceArrhenius(A=(1.00714e+21,'m^5/(mol^2*s)','*|/',100), n=0, Ea=(2.999,'eV/molecule'), T0=(1,'K')),
+    kinetics = StickingCoefficient(A=10916.7, n=0, Ea=(2.999,'eV/molecule'), T0=(1,'K')),
     shortDesc = """cathub_id:UmVhY3Rpb246OTIx""",
     longDesc = 
 """
@@ -285,15 +257,14 @@ dft_code : DACAPO
 dftFunctional : RPBE
 pubId: WangUniversal2011
 reactionEnergy: 1.31775 eV
-
-A factor estimation = kb*298/h/10 s^-1 / (2.483e-05 mol/m^2)^2 (surface site density for Pt111)
+A determined such that the sticking coeff is >= .1 at 3000K
 """,
     metal = "Cu",
     facet = "211",
 )
 
 entry(
-    index = 14,
+    index = 12,
     label = "CHCH3X + X <=> CHX + CH3X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.59,'eV/molecule'), T0=(1,'K')),
@@ -313,7 +284,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 15,
+    index = 13,
     label = "CCH3X + X <=> CX + CH3X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.59,'eV/molecule'), T0=(1,'K')),
@@ -333,28 +304,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 16,
-    label = "CH4 + X + X <=> HX + CH3X",
-    degeneracy = 1.0,
-    duplicate = True,
-    kinetics = SurfaceArrhenius(A=(1.00714e+21,'m^5/(mol^2*s)','*|/',100), n=0, Ea=(1.94,'eV/molecule'), T0=(1,'K')),
-    shortDesc = """cathub_id:UmVhY3Rpb246OTU2""",
-    longDesc = 
-"""
-equation : CH4(g) -> CH3* + H*
-dft_code : DACAPO
-dftFunctional : RPBE
-pubId: WangUniversal2011
-reactionEnergy: 1.212 eV
-
-A factor estimation = kb*298/h/10 s^-1 / (2.483e-05 mol/m^2)^2 (surface site density for Pt111)
-""",
-    metal = "Cu",
-    facet = "111",
-)
-
-entry(
-    index = 17,
+    index = 14,
     label = "OCHX <=> HX + COX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(6.20932e+11,'s^-1','*|/',100), n=0, Ea=(0.35397,'eV/molecule'), T0=(1,'K')),
@@ -374,7 +324,7 @@ A factor estimation = kb*298/h/10 s^-1
 )
 
 entry(
-    index = 18,
+    index = 15,
     label = "COHX + X <=> HX + COX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(0.73658,'eV/molecule'), T0=(1,'K')),
@@ -394,10 +344,10 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 19,
+    index = 16,
     label = "CO2 + X + X <=> OX + COX",
     degeneracy = 1.0,
-    kinetics = SurfaceArrhenius(A=(1.00714e+21,'m^5/(mol^2*s)','*|/',100), n=0, Ea=(1.82,'eV/molecule'), T0=(1,'K')),
+    kinetics = StickingCoefficient(A=114.146, n=0, Ea=(1.82,'eV/molecule'), T0=(1,'K')),
     shortDesc = """cathub_id:UmVhY3Rpb246OTkw""",
     longDesc = 
 """
@@ -406,15 +356,14 @@ dft_code : DACAPO
 dftFunctional : RPBE
 pubId: CatappTrends2008
 reactionEnergy: 1.29 eV
-
-A factor estimation = kb*298/h/10 s^-1 / (2.483e-05 mol/m^2)^2 (surface site density for Pt111)
+A determined such that the sticking coeff is >= .1 at 3000K
 """,
     metal = "Cu",
     facet = "111",
 )
 
 entry(
-    index = 20,
+    index = 17,
     label = "HCOHX + X <=> HX + COHX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.362,'eV/molecule'), T0=(1,'K')),
@@ -434,7 +383,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 21,
+    index = 18,
     label = "OHX + X <=> HX + OX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.729,'eV/molecule'), T0=(1,'K')),
@@ -454,7 +403,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 22,
+    index = 19,
     label = "H3COX + X + X <=> HX + OCH2X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(1.00714e+21,'m^4/(mol^2*s)','*|/',100), n=0, Ea=(1.2198,'eV/molecule'), T0=(1,'K')),
@@ -474,10 +423,10 @@ A factor estimation = kb*298/h/10 s^-1 / (2.483e-05 mol/m^2)^2 (surface site den
 )
 
 entry(
-    index = 23,
+    index = 20,
     label = "CH3OH + X + X <=> HX + H3COX",
     degeneracy = 1.0,
-    kinetics = SurfaceArrhenius(A=(1.00714e+21,'m^5/(mol^2*s)','*|/',100), n=0, Ea=(1.30059,'eV/molecule'), T0=(1,'K')),
+    kinetics = StickingCoefficient(A=15.3071, n=0, Ea=(1.30059,'eV/molecule'), T0=(1,'K')),
     shortDesc = """cathub_id:UmVhY3Rpb246MTAzNw==""",
     longDesc = 
 """
@@ -486,15 +435,14 @@ dft_code : DACAPO
 dftFunctional : RPBE
 pubId: BehrensThe2012
 reactionEnergy: -0.03297 eV
-
-A factor estimation = kb*298/h/10 s^-1 / (2.483e-05 mol/m^2)^2 (surface site density for Pt111)
+A determined such that the sticking coeff is >= .1 at 3000K
 """,
     metal = "Cu",
     facet = "211",
 )
 
 entry(
-    index = 24,
+    index = 21,
     label = "OCH2X + X <=> HX + OCHX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(0.84854,'eV/molecule'), T0=(1,'K')),
@@ -514,7 +462,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 25,
+    index = 22,
     label = "HCOHX + X + X <=> HX + OCHX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(1.00714e+21,'m^4/(mol^2*s)','*|/',100), n=0, Ea=(1.0631,'eV/molecule'), T0=(1,'K')),
@@ -534,7 +482,7 @@ A factor estimation = kb*298/h/10 s^-1 / (2.483e-05 mol/m^2)^2 (surface site den
 )
 
 entry(
-    index = 26,
+    index = 23,
     label = "H3COX + X <=> HX + HCOHX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(0.916,'eV/molecule'), T0=(1,'K')),
@@ -554,7 +502,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 27,
+    index = 24,
     label = "NHX + X <=> HX + NX",
     degeneracy = 1.0,
     duplicate = True,
@@ -575,7 +523,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 28,
+    index = 25,
     label = "CH2NX <=> NX + CH2X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(6.20932e+11,'s^-1','*|/',100), n=0, Ea=(3.1,'eV/molecule'), T0=(1,'K')),
@@ -595,7 +543,7 @@ A factor estimation = kb*298/h/10 s^-1
 )
 
 entry(
-    index = 29,
+    index = 26,
     label = "CNX <=> CX + NX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(6.20932e+11,'s^-1','*|/',100), n=0, Ea=(4.04,'eV/molecule'), T0=(1,'K')),
@@ -615,7 +563,7 @@ A factor estimation = kb*298/h/10 s^-1
 )
 
 entry(
-    index = 30,
+    index = 27,
     label = "CH2NHX <=> NHX + CH2X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(6.20932e+11,'s^-1','*|/',100), n=0, Ea=(2.12,'eV/molecule'), T0=(1,'K')),
@@ -635,7 +583,7 @@ A factor estimation = kb*298/h/10 s^-1
 )
 
 entry(
-    index = 31,
+    index = 28,
     label = "NH2X + X <=> HX + NHX",
     degeneracy = 1.0,
     duplicate = True,
@@ -656,7 +604,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 32,
+    index = 29,
     label = "CHNHX <=> CHX + NHX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(6.20932e+11,'s^-1','*|/',100), n=0, Ea=(2.63,'eV/molecule'), T0=(1,'K')),
@@ -676,7 +624,7 @@ A factor estimation = kb*298/h/10 s^-1
 )
 
 entry(
-    index = 33,
+    index = 30,
     label = "CNHX <=> CX + NHX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(6.20932e+11,'s^-1','*|/',100), n=0, Ea=(2.78,'eV/molecule'), T0=(1,'K')),
@@ -696,10 +644,10 @@ A factor estimation = kb*298/h/10 s^-1
 )
 
 entry(
-    index = 34,
+    index = 31,
     label = "NH3 + X + X <=> HX + NH2X",
     degeneracy = 1.0,
-    kinetics = SurfaceArrhenius(A=(1.00714e+21,'m^5/(mol^2*s)','*|/',100), n=0, Ea=(1.24,'eV/molecule'), T0=(1,'K')),
+    kinetics = StickingCoefficient(A=12.1089, n=0, Ea=(1.24,'eV/molecule'), T0=(1,'K')),
     shortDesc = """cathub_id:UmVhY3Rpb246MTE3Ng==""",
     longDesc = 
 """
@@ -708,15 +656,14 @@ dft_code : DACAPO
 dftFunctional : RPBE
 pubId: WangUniversal2011
 reactionEnergy: -0.149 eV
-
-A factor estimation = kb*298/h/10 s^-1 / (2.483e-05 mol/m^2)^2 (surface site density for Pt111)
+A determined such that the sticking coeff is >= .1 at 3000K
 """,
     metal = "Cu",
     facet = "211",
 )
 
 entry(
-    index = 35,
+    index = 32,
     label = "CH2NH2X + X <=> CH2X + NH2X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.25,'eV/molecule'), T0=(1,'K')),
@@ -736,7 +683,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 36,
+    index = 33,
     label = "NH3X + X <=> HX + NH2X",
     degeneracy = 1.0,
     duplicate = True,
@@ -757,7 +704,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 37,
+    index = 34,
     label = "CNH2X + X <=> CX + NH2X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.9,'eV/molecule'), T0=(1,'K')),
@@ -777,7 +724,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 38,
+    index = 35,
     label = "CHNH2X + X <=> CHX + NH2X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.98,'eV/molecule'), T0=(1,'K')),
@@ -797,10 +744,10 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 39,
+    index = 36,
     label = "NO + X + X <=> NX + OX",
     degeneracy = 1.0,
-    kinetics = SurfaceArrhenius(A=(1.00714e+21,'m^5/(mol^2*s)','*|/',100), n=0, Ea=(1.285,'eV/molecule'), T0=(1,'K')),
+    kinetics = StickingCoefficient(A=14.4113, n=0, Ea=(1.285,'eV/molecule'), T0=(1,'K')),
     shortDesc = """cathub_id:UmVhY3Rpb246MTI5MQ==""",
     longDesc = 
 """
@@ -809,15 +756,14 @@ dft_code : DACAPO
 dftFunctional : RPBE
 pubId: FalsigOn2014
 reactionEnergy: -0.485 eV
-
-A factor estimation = kb*298/h/10 s^-1 / (2.483e-05 mol/m^2)^2 (surface site density for Pt111)
+A determined such that the sticking coeff is >= .1 at 3000K
 """,
     metal = "Cu",
     facet = "111",
 )
 
 entry(
-    index = 40,
+    index = 37,
     label = "OCH3X + X <=> OX + CH3X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.802,'eV/molecule'), T0=(1,'K')),
@@ -837,7 +783,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 41,
+    index = 38,
     label = "NOX + X <=> NX + OX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(2,'eV/molecule'), T0=(1,'K')),
@@ -857,7 +803,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 42,
+    index = 39,
     label = "OCHX <=> OX + CHX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(6.20932e+11,'s^-1','*|/',100), n=0, Ea=(2.302,'eV/molecule'), T0=(1,'K')),
@@ -877,10 +823,10 @@ A factor estimation = kb*298/h/10 s^-1
 )
 
 entry(
-    index = 43,
+    index = 40,
     label = "CH2O + X + X <=> OX + CH2X",
     degeneracy = 1.0,
-    kinetics = SurfaceArrhenius(A=(1.00714e+21,'m^5/(mol^2*s)','*|/',100), n=0, Ea=(2.38,'eV/molecule'), T0=(1,'K')),
+    kinetics = StickingCoefficient(A=995.91, n=0, Ea=(2.38,'eV/molecule'), T0=(1,'K')),
     shortDesc = """cathub_id:UmVhY3Rpb246MTMyOA==""",
     longDesc = 
 """
@@ -889,15 +835,14 @@ dft_code : DACAPO
 dftFunctional : RPBE
 pubId: WangUniversal2011
 reactionEnergy: 0.77 eV
-
-A factor estimation = kb*298/h/10 s^-1 / (2.483e-05 mol/m^2)^2 (surface site density for Pt111)
+A determined such that the sticking coeff is >= .1 at 3000K
 """,
     metal = "Cu",
     facet = "211",
 )
 
 entry(
-    index = 44,
+    index = 41,
     label = "OCH2X <=> OX + CH2X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(6.20932e+11,'s^-1','*|/',100), n=0, Ea=(2.437,'eV/molecule'), T0=(1,'K')),
@@ -917,28 +862,7 @@ A factor estimation = kb*298/h/10 s^-1
 )
 
 entry(
-    index = 45,
-    label = "H2O + X + X <=> HX + OHX",
-    degeneracy = 1.0,
-    duplicate = True,
-    kinetics = SurfaceArrhenius(A=(1.00714e+21,'m^5/(mol^2*s)','*|/',100), n=0, Ea=(1.303,'eV/molecule'), T0=(1,'K')),
-    shortDesc = """cathub_id:UmVhY3Rpb246MTQwMg==""",
-    longDesc = 
-"""
-equation : H2O(g) -> OH* + H*
-dft_code : DACAPO
-dftFunctional : RPBE
-pubId: WangUniversal2011
-reactionEnergy: 0.215 eV
-
-A factor estimation = kb*298/h/10 s^-1 / (2.483e-05 mol/m^2)^2 (surface site density for Pt111)
-""",
-    metal = "Cu",
-    facet = "111",
-)
-
-entry(
-    index = 46,
+    index = 42,
     label = "H2OX + X <=> HX + OHX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.344,'eV/molecule'), T0=(1,'K')),
@@ -958,7 +882,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 47,
+    index = 43,
     label = "OCH2X + OCH2X <=> OCH2CH2OX + X + X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(0.203,'eV/molecule'), T0=(1,'K')),
@@ -978,7 +902,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 48,
+    index = 44,
     label = "COX + OCH2X <=> OCCH2OX + X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(0.355,'eV/molecule'), T0=(1,'K')),
@@ -998,7 +922,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 49,
+    index = 45,
     label = "CHOX + OCH2X <=> OCHCH2OX + X + X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(0.374,'eV/molecule'), T0=(1,'K')),
@@ -1018,7 +942,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 50,
+    index = 46,
     label = "CHOX + CHOX <=> OCHCHOX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(0.564,'eV/molecule'), T0=(1,'K')),
@@ -1038,7 +962,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 51,
+    index = 47,
     label = "COX + CHOX <=> OCCHOX + X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(0.675,'eV/molecule'), T0=(1,'K')),
@@ -1058,7 +982,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 52,
+    index = 48,
     label = "COX + COX <=> OCCOX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.546,'eV/molecule'), T0=(1,'K')),
@@ -1078,7 +1002,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 53,
+    index = 49,
     label = "COOHX <=> HX + CO2",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(6.20932e+11,'s^-1','*|/',100), n=0, Ea=(1.32,'eV/molecule'), T0=(1,'K')),
@@ -1098,7 +1022,7 @@ A factor estimation = kb*298/h/10 s^-1
 )
 
 entry(
-    index = 54,
+    index = 50,
     label = "HCOOX <=> HX + CO2",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(6.20932e+11,'s^-1','*|/',100), n=0, Ea=(1.32,'eV/molecule'), T0=(1,'K')),
@@ -1118,10 +1042,10 @@ A factor estimation = kb*298/h/10 s^-1
 )
 
 entry(
-    index = 55,
+    index = 51,
     label = "HCOOH + X + X <=> HX + COOHX",
     degeneracy = 1.0,
-    kinetics = SurfaceArrhenius(A=(1.00714e+21,'m^5/(mol^2*s)','*|/',100), n=0, Ea=(1.06,'eV/molecule'), T0=(1,'K')),
+    kinetics = StickingCoefficient(A=6.03559, n=0, Ea=(1.06,'eV/molecule'), T0=(1,'K')),
     shortDesc = """cathub_id:UmVhY3Rpb246MjM4Mw==""",
     longDesc = 
 """
@@ -1130,18 +1054,17 @@ dft_code : DACAPO
 dftFunctional : RPBE
 pubId: YooTheoretical2014
 reactionEnergy: 0.37 eV
-
-A factor estimation = kb*298/h/10 s^-1 / (2.483e-05 mol/m^2)^2 (surface site density for Pt111)
+A determined such that the sticking coeff is >= .1 at 3000K
 """,
     metal = "Cu",
     facet = "111",
 )
 
 entry(
-    index = 56,
+    index = 52,
     label = "HCOOH + X + X <=> HX + HCOOX",
     degeneracy = 1.0,
-    kinetics = SurfaceArrhenius(A=(1.00714e+21,'m^5/(mol^2*s)','*|/',100), n=0, Ea=(0.44,'eV/molecule'), T0=(1,'K')),
+    kinetics = StickingCoefficient(A=1, n=0, Ea=(0.44,'eV/molecule'), T0=(1,'K')),
     shortDesc = """cathub_id:UmVhY3Rpb246MjM5Mg==""",
     longDesc = 
 """
@@ -1150,15 +1073,14 @@ dft_code : DACAPO
 dftFunctional : RPBE
 pubId: YooTheoretical2014
 reactionEnergy: -0.49 eV
-
-A factor estimation = kb*298/h/10 s^-1 / (2.483e-05 mol/m^2)^2 (surface site density for Pt111)
+A determined such that the sticking coeff is >= .1 at 3000K
 """,
     metal = "Cu",
     facet = "111",
 )
 
 entry(
-    index = 57,
+    index = 53,
     label = "COOHX + X <=> COX + OHX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(0.47,'eV/molecule'), T0=(1,'K')),
@@ -1178,7 +1100,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 58,
+    index = 54,
     label = "OCH2X <=> HX + CHOX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(6.20932e+11,'s^-1','*|/',100), n=0, Ea=(1.12091,'eV/molecule'), T0=(1,'K')),
@@ -1198,7 +1120,7 @@ A factor estimation = kb*298/h/10 s^-1
 )
 
 entry(
-    index = 59,
+    index = 55,
     label = "X + H3COX <=> HX + HCOHX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.25609,'eV/molecule'), T0=(1,'K')),
@@ -1218,7 +1140,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 60,
+    index = 56,
     label = "X + CH3CHOHX + X <=> HX + CH3CHOX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(1.00714e+21,'m^4/(mol^2*s)','*|/',100), n=0, Ea=(0.757345,'eV/molecule'), T0=(1,'K')),
@@ -1238,28 +1160,7 @@ A factor estimation = kb*298/h/10 s^-1 / (2.483e-05 mol/m^2)^2 (surface site den
 )
 
 entry(
-    index = 61,
-    label = "X + CH2X <=> HX + CHX",
-    degeneracy = 1.0,
-    duplicate = True,
-    kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.28762,'eV/molecule'), T0=(1,'K')),
-    shortDesc = """cathub_id:UmVhY3Rpb246ODI3NDA=""",
-    longDesc = 
-"""
-equation : CH2* + * -> CH* + H*
-dft_code : Quantum ESPRESSO 5.1
-dftFunctional : BEEF-vdW
-pubId: SchumannSelectivity2018
-reactionEnergy: 0.808352084743 eV
-
-A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density for Pt111)
-""",
-    metal = "Cu",
-    facet = "111",
-)
-
-entry(
-    index = 62,
+    index = 57,
     label = "X + CH3CH2OHX <=> HX + CH3CHOHX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.83774,'eV/molecule'), T0=(1,'K')),
@@ -1279,7 +1180,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 63,
+    index = 58,
     label = "CHCOX <=> CHX + COX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(6.20932e+11,'s^-1','*|/',100), n=0, Ea=(1.7766,'eV/molecule'), T0=(1,'K')),
@@ -1299,28 +1200,7 @@ A factor estimation = kb*298/h/10 s^-1
 )
 
 entry(
-    index = 64,
-    label = "X + CH3X <=> HX + CH2X",
-    degeneracy = 1.0,
-    duplicate = True,
-    kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.67645,'eV/molecule'), T0=(1,'K')),
-    shortDesc = """cathub_id:UmVhY3Rpb246ODI3NTg=""",
-    longDesc = 
-"""
-equation : CH3* + * -> CH2* + H*
-dft_code : Quantum ESPRESSO 5.1
-dftFunctional : BEEF-vdW
-pubId: SchumannSelectivity2018
-reactionEnergy: 1.14904066645 eV
-
-A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density for Pt111)
-""",
-    metal = "Cu",
-    facet = "111",
-)
-
-entry(
-    index = 65,
+    index = 59,
     label = "X + CH2COX <=> HX + CHCOX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(0.817666,'eV/molecule'), T0=(1,'K')),
@@ -1340,7 +1220,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 66,
+    index = 60,
     label = "X + HCOHX + X <=> HX + OCHX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(1.00714e+21,'m^4/(mol^2*s)','*|/',100), n=0, Ea=(0.652308,'eV/molecule'), T0=(1,'K')),
@@ -1360,7 +1240,7 @@ A factor estimation = kb*298/h/10 s^-1 / (2.483e-05 mol/m^2)^2 (surface site den
 )
 
 entry(
-    index = 67,
+    index = 61,
     label = "X + CH3COX + X <=> HX + CH2COX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(1.00714e+21,'m^4/(mol^2*s)','*|/',100), n=0, Ea=(1.74353,'eV/molecule'), T0=(1,'K')),
@@ -1380,10 +1260,10 @@ A factor estimation = kb*298/h/10 s^-1 / (2.483e-05 mol/m^2)^2 (surface site den
 )
 
 entry(
-    index = 68,
+    index = 62,
     label = "X + X + CH3OH <=> HX + OCH3X",
     degeneracy = 1.0,
-    kinetics = SurfaceArrhenius(A=(1.00714e+21,'m^5/(mol^2*s)','*|/',100), n=0, Ea=(1.14986,'eV/molecule'), T0=(1,'K')),
+    kinetics = StickingCoefficient(A=8.54433, n=0, Ea=(1.14986,'eV/molecule'), T0=(1,'K')),
     shortDesc = """cathub_id:UmVhY3Rpb246ODI3OTQ=""",
     longDesc = 
 """
@@ -1392,15 +1272,14 @@ dft_code : Quantum ESPRESSO 5.1
 dftFunctional : BEEF-vdW
 pubId: SchumannSelectivity2018
 reactionEnergy: 0.111993965489 eV
-
-A factor estimation = kb*298/h/10 s^-1 / (2.483e-05 mol/m^2)^2 (surface site density for Pt111)
+A determined such that the sticking coeff is >= .1 at 3000K
 """,
     metal = "Cu",
     facet = "111",
 )
 
 entry(
-    index = 69,
+    index = 63,
     label = "CH3CHOX <=> HX + CH3COX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(6.20932e+11,'s^-1','*|/',100), n=0, Ea=(1.26379,'eV/molecule'), T0=(1,'K')),
@@ -1420,7 +1299,7 @@ A factor estimation = kb*298/h/10 s^-1
 )
 
 entry(
-    index = 70,
+    index = 64,
     label = "HX + OCH3X <=> OHX + CH3X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.58465,'eV/molecule'), T0=(1,'K')),
@@ -1440,11 +1319,10 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 71,
+    index = 65,
     label = "X + X + H2O <=> HX + OHX",
     degeneracy = 1.0,
-    duplicate = True,
-    kinetics = SurfaceArrhenius(A=(1.00714e+21,'m^5/(mol^2*s)','*|/',100), n=0, Ea=(1.32752,'eV/molecule'), T0=(1,'K')),
+    kinetics = StickingCoefficient(A=16.9876, n=0, Ea=(1.32752,'eV/molecule'), T0=(1,'K')),
     shortDesc = """cathub_id:UmVhY3Rpb246ODI4MTI=""",
     longDesc = 
 """
@@ -1453,19 +1331,17 @@ dft_code : Quantum ESPRESSO 5.1
 dftFunctional : BEEF-vdW
 pubId: SchumannSelectivity2018
 reactionEnergy: 0.358847419178 eV
-
-A factor estimation = kb*298/h/10 s^-1 / (2.483e-05 mol/m^2)^2 (surface site density for Pt111)
+A determined such that the sticking coeff is >= .1 at 3000K
 """,
     metal = "Cu",
     facet = "111",
 )
 
 entry(
-    index = 72,
+    index = 66,
     label = "X + X + CH4 <=> HX + CH3X",
     degeneracy = 1.0,
-    duplicate = True,
-    kinetics = SurfaceArrhenius(A=(1.00714e+21,'m^5/(mol^2*s)','*|/',100), n=0, Ea=(1.89297,'eV/molecule'), T0=(1,'K')),
+    kinetics = StickingCoefficient(A=151.372, n=0, Ea=(1.89297,'eV/molecule'), T0=(1,'K')),
     shortDesc = """cathub_id:UmVhY3Rpb246ODI4MTg=""",
     longDesc = 
 """
@@ -1474,15 +1350,14 @@ dft_code : Quantum ESPRESSO 5.1
 dftFunctional : BEEF-vdW
 pubId: SchumannSelectivity2018
 reactionEnergy: 1.31315701955 eV
-
-A factor estimation = kb*298/h/10 s^-1 / (2.483e-05 mol/m^2)^2 (surface site density for Pt111)
+A determined such that the sticking coeff is >= .1 at 3000K
 """,
     metal = "Cu",
     facet = "111",
 )
 
 entry(
-    index = 73,
+    index = 67,
     label = "X + CH3COX <=> COX + CH3X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.3472,'eV/molecule'), T0=(1,'K')),
@@ -1502,7 +1377,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 74,
+    index = 68,
     label = "X + HCOHX <=> CHX + OHX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.1699,'eV/molecule'), T0=(1,'K')),
@@ -1522,10 +1397,10 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 75,
+    index = 69,
     label = "X + X + CH3OH <=> HX + H3COX",
     degeneracy = 1.0,
-    kinetics = SurfaceArrhenius(A=(1.00714e+21,'m^5/(mol^2*s)','*|/',100), n=0, Ea=(1.5036,'eV/molecule'), T0=(1,'K')),
+    kinetics = StickingCoefficient(A=33.5687, n=0, Ea=(1.5036,'eV/molecule'), T0=(1,'K')),
     shortDesc = """cathub_id:UmVhY3Rpb246ODI4MzY=""",
     longDesc = 
 """
@@ -1534,15 +1409,14 @@ dft_code : Quantum ESPRESSO 5.1
 dftFunctional : BEEF-vdW
 pubId: SchumannSelectivity2018
 reactionEnergy: 1.11924855364 eV
-
-A factor estimation = kb*298/h/10 s^-1 / (2.483e-05 mol/m^2)^2 (surface site density for Pt111)
+A determined such that the sticking coeff is >= .1 at 3000K
 """,
     metal = "Cu",
     facet = "111",
 )
 
 entry(
-    index = 76,
+    index = 70,
     label = "X + OCH3X + X <=> HX + OCH2X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(1.00714e+21,'m^4/(mol^2*s)','*|/',100), n=0, Ea=(1.34269,'eV/molecule'), T0=(1,'K')),
@@ -1562,7 +1436,7 @@ A factor estimation = kb*298/h/10 s^-1 / (2.483e-05 mol/m^2)^2 (surface site den
 )
 
 entry(
-    index = 77,
+    index = 71,
     label = "X + CHOX <=> HX + COX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(0.291921,'eV/molecule'), T0=(1,'K')),
@@ -1582,10 +1456,10 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 78,
+    index = 72,
     label = "X + X + CH3CH3 <=> CH3X + CH3X",
     degeneracy = 1.0,
-    kinetics = SurfaceArrhenius(A=(1.00714e+21,'m^5/(mol^2*s)','*|/',100), n=0, Ea=(3.51085,'eV/molecule'), T0=(1,'K')),
+    kinetics = StickingCoefficient(A=79061, n=0, Ea=(3.51085,'eV/molecule'), T0=(1,'K')),
     shortDesc = """cathub_id:UmVhY3Rpb246MzM4Mjkz""",
     longDesc = 
 """
@@ -1594,18 +1468,17 @@ dft_code : Quantum ESPRESSO 5.1
 dftFunctional : BEEF-vdW
 pubId: HansenFirst2018
 reactionEnergy: 1.4629379389225505 eV
-
-A factor estimation = kb*298/h/10 s^-1 / (2.483e-05 mol/m^2)^2 (surface site density for Pt111)
+A determined such that the sticking coeff is >= .1 at 3000K
 """,
     metal = "Cu",
     facet = "111",
 )
 
 entry(
-    index = 79,
+    index = 73,
     label = "X + X + CH3CH3 <=> HX + CH2CH3X",
     degeneracy = 1.0,
-    kinetics = SurfaceArrhenius(A=(1.00714e+21,'m^5/(mol^2*s)','*|/',100), n=0, Ea=(2.15338,'eV/molecule'), T0=(1,'K')),
+    kinetics = StickingCoefficient(A=414.491, n=0, Ea=(2.15338,'eV/molecule'), T0=(1,'K')),
     shortDesc = """cathub_id:UmVhY3Rpb246MzM4Mjk0""",
     longDesc = 
 """
@@ -1614,15 +1487,14 @@ dft_code : Quantum ESPRESSO 5.1
 dftFunctional : BEEF-vdW
 pubId: HansenFirst2018
 reactionEnergy: 1.0548785937717184 eV
-
-A factor estimation = kb*298/h/10 s^-1 / (2.483e-05 mol/m^2)^2 (surface site density for Pt111)
+A determined such that the sticking coeff is >= .1 at 3000K
 """,
     metal = "Cu",
     facet = "111",
 )
 
 entry(
-    index = 80,
+    index = 74,
     label = "H2 + CH2CH2X <=> HX + CH2CH3X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^3/(mol*s)','*|/',100), n=0, Ea=(1.35735,'eV/molecule'), T0=(1,'K')),
@@ -1642,7 +1514,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 81,
+    index = 75,
     label = "CH2CH2X <=> CH2X + CH2X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(6.20932e+11,'s^-1','*|/',100), n=0, Ea=(2.24624,'eV/molecule'), T0=(1,'K')),
@@ -1662,7 +1534,7 @@ A factor estimation = kb*298/h/10 s^-1
 )
 
 entry(
-    index = 82,
+    index = 76,
     label = "X + CH2CH2X <=> HX + CHCH2X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.82807,'eV/molecule'), T0=(1,'K')),
@@ -1682,7 +1554,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 83,
+    index = 77,
     label = "X + CHCH2X <=> HX + CCH2X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.66138,'eV/molecule'), T0=(1,'K')),
@@ -1702,7 +1574,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 84,
+    index = 78,
     label = "CHCH2X <=> CHX + CH2X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(6.20932e+11,'s^-1','*|/',100), n=0, Ea=(2.02293,'eV/molecule'), T0=(1,'K')),
@@ -1722,7 +1594,7 @@ A factor estimation = kb*298/h/10 s^-1
 )
 
 entry(
-    index = 85,
+    index = 79,
     label = "CCH2X <=> CX + CH2X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(6.20932e+11,'s^-1','*|/',100), n=0, Ea=(2.93855,'eV/molecule'), T0=(1,'K')),
@@ -1742,7 +1614,7 @@ A factor estimation = kb*298/h/10 s^-1
 )
 
 entry(
-    index = 86,
+    index = 80,
     label = "X + CH2CH3X <=> HX + CHCH3X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.4683,'eV/molecule'), T0=(1,'K')),
@@ -1762,7 +1634,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 87,
+    index = 81,
     label = "X + CH2CH3X <=> CH2X + CH3X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.84405,'eV/molecule'), T0=(1,'K')),
@@ -1782,7 +1654,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 88,
+    index = 82,
     label = "X + CHCH3X + X <=> HX + CHCH2X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(1.00714e+21,'m^4/(mol^2*s)','*|/',100), n=0, Ea=(1.06802,'eV/molecule'), T0=(1,'K')),
@@ -1802,7 +1674,7 @@ A factor estimation = kb*298/h/10 s^-1 / (2.483e-05 mol/m^2)^2 (surface site den
 )
 
 entry(
-    index = 89,
+    index = 83,
     label = "X + CHCH3X <=> HX + CCH3X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(0.949978,'eV/molecule'), T0=(1,'K')),
@@ -1822,7 +1694,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 90,
+    index = 84,
     label = "X + CHCH3X <=> CHX + CH3X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.47684,'eV/molecule'), T0=(1,'K')),
@@ -1842,7 +1714,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 91,
+    index = 85,
     label = "X + CCH3X + X <=> HX + CCH2X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(1.00714e+21,'m^4/(mol^2*s)','*|/',100), n=0, Ea=(1.44964,'eV/molecule'), T0=(1,'K')),
@@ -1862,7 +1734,7 @@ A factor estimation = kb*298/h/10 s^-1 / (2.483e-05 mol/m^2)^2 (surface site den
 )
 
 entry(
-    index = 92,
+    index = 86,
     label = "X + CCH3X <=> CX + CH3X",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(2.44767,'eV/molecule'), T0=(1,'K')),
@@ -1882,7 +1754,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 93,
+    index = 87,
     label = "CHCHX <=> CHX + CHX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(6.20932e+11,'s^-1','*|/',100), n=0, Ea=(2.22937,'eV/molecule'), T0=(1,'K')),
@@ -1902,7 +1774,7 @@ A factor estimation = kb*298/h/10 s^-1
 )
 
 entry(
-    index = 94,
+    index = 88,
     label = "X + CHCHX <=> HX + CCHX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.81452,'eV/molecule'), T0=(1,'K')),
@@ -1922,7 +1794,7 @@ A factor estimation = kb*298/h/10 s^-1 / 2.483e-05 mol/m^2 (surface site density
 )
 
 entry(
-    index = 95,
+    index = 89,
     label = "X + CCHX <=> HX + CCX",
     degeneracy = 1.0,
     kinetics = SurfaceArrhenius(A=(2.50073e+16,'m^2/(mol*s)','*|/',100), n=0, Ea=(1.61752,'eV/molecule'), T0=(1,'K')),
