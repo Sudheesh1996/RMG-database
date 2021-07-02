@@ -10,7 +10,7 @@ entry(
     index = 1,
     label = "Adsorbate;VacantSite",
     kinetics = StickingCoefficientBEP(
-        A = 0.1,
+        A = 0.01, # should probably be slower than surface_adsorption_single
         n = 0,
         alpha = 0,
         E0 = (0, 'kcal/mol'),
