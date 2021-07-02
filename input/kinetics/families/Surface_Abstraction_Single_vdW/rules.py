@@ -12,14 +12,17 @@ entry(
     index = 1,
     label = "Donating;Abstracting",
     kinetics = SurfaceArrheniusBEP(
-        A = (1.0e13, 'm^2/(mol*s)'),
+        A = (1.0e15, 'm^2/(mol*s)'),
         n = 0,
-        alpha = 0.5,
-        E0 = (0, 'kcal/mol'),
+        alpha = 0.4,
+        E0 = (10., 'kcal/mol'), # made up
         Tmin = (200, 'K'),
         Tmax = (3000, 'K'),
     ),
     rank = 0,
     shortDesc = u"""Default""",
-    longDesc = u"""Made up"""
+    longDesc = u"""
+David made this up. We should try to find training reactions or different BEP rules depending on the bond being broken.
+A factor taken from "Abstracting;Donating" rule in Surface_Abstraction family
+    """,
 )
