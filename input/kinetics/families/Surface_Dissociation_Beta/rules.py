@@ -13,7 +13,7 @@ entry(
         A = (3.048e17, 'm^2/(mol*s)'),
         n = 0.,
         alpha = 0.54,
-        E0 = (20.9850987, 'kcal/mol'),
+        E0 = (0.91, 'eV/molecule'),
         Tmin = (200, 'K'),
         Tmax = (3000, 'K'),
     ),
@@ -26,6 +26,6 @@ and CO Hydrogenation", Grabow and Mavrikakis.  doi:10.1021/cs200055d
 E0 is Ea
 
 A factor from paper / surface site density of Cu
-8.971e12 m^4/(mol^2 * s) / 2.943e‐5 mol/m^2 = 3.048e17 m^2/(mol*s)
+8.971e12 1/s / 2.943e‐5 mol/m^2 = 3.048e17 m^2/(mol*s)
 """
 )
